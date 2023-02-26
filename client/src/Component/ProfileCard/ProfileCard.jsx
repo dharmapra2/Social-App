@@ -11,7 +11,7 @@ function ProfileCard() {
         <img src={Profile} alt="profile image" />
       </div>
       <div className="ProfileName">
-        <span>Zendrea fghj</span>
+        <span>Alex fghj</span>
         <span>Senior UI/UX Designer</span>
       </div>
       <div className="followStatus">
