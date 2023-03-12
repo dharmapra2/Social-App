@@ -21,7 +21,6 @@ function PostShare() {
       });
     }
   };
-  console.log(image);
   return (
     <div className="PostShare">
       <img src={ProfileImage} alt="Profile image" />
@@ -78,7 +77,10 @@ function PostShare() {
       </div>
       {image && (
         <div className="prevImage">
-          <UilTimes onClick={() => setImage(null)} className="cursor-pointer " />
+          <UilTimes
+            onClick={() => setImage(null)}
+            className="cursor-pointer "
+          />
           <img src={image?.imageUrl} alt="selected image" />
         </div>
       )}
