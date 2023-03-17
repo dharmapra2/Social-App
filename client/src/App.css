@@ -27,3 +27,8 @@
   transition: all 100ms ease-out;
   cursor: pointer;
 }
+.button:hover {
+  background: transparent;
+  color: var(--orange);
+  border: 2px solid var(--orange);
+}
