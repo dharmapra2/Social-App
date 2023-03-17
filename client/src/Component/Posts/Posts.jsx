@@ -6,7 +6,9 @@ function Posts() {
   return (
     <div className="Posts">
       {PostsData?.map((posts, index) => (
-        <Post data={posts} id={index} />
+        <div key={index} className="Post">
+          <Post data={posts} id={index} />
+        </div>
       ))}
     </div>
   );
