@@ -4,7 +4,7 @@ import { Followers } from "../../Data/FollowersData";
 
 function FollowersCard() {
   return (
-    <div className="FollowersCard">
+    <div className="FollowersCard overflow-y-scroll">
       <h3>Who is following you </h3>
       {Followers?.map((follower, index) => (
         <div className="follower" key={index}>

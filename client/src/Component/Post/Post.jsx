@@ -15,6 +15,12 @@ function Post({ data }) {
         <img src={Comment} alt="Comment" />
       </div>
       <div className="likes">{data?.likes} likes</div>
+      <div className="details">
+        <span>
+          <b>{data?.name}</b>
+        </span>
+        <span>{data?.desc}</span>
+      </div>
     </>
   );
 }

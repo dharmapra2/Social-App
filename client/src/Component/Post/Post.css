@@ -10,3 +10,11 @@
   align-items: flex-start;
   gap: 1.5rem;
 }
+.likes {
+  color: var(--gray);
+  font-size: 12px;
+}
+.details {
+  display: flex;
+  gap: 0.5rem;
+}

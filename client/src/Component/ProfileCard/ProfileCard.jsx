@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Cover from "../../img/cover.jpg";
 import Profile from "../../img/profileImg.jpg";
 import "./ProfileCard.css";
 
 function ProfileCard() {
+  const [profilePage, setProfilePage] = useState(true);
   return (
     <div className="ProfileCard">
       <div className="ProfileImages">
@@ -26,10 +27,19 @@ function ProfileCard() {
             <span>1</span>
             <span>Followings</span>
           </div>
+          {profilePage && (
+            <>
+              <div className="vl"></div>
+              <div className="follow">
+                <span>3</span>
+                <span>Posts</span>
+              </div>
+            </>
+          )}
         </div>
         <hr />
       </div>
-      <span>My Profile</span>
+      {profilePage ? null : <span>My Profile</span>}
     </div>
   );
 }
