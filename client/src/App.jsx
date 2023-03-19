@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Home from "./Pages/Home/Home";
 import Profile from "./Pages/Profile/Profile";
+import Auth from "./Pages/Auth/Auth";
 
 function App() {
   return (
@@ -9,7 +10,8 @@ function App() {
       <div className="blur -top-[18%] right-0"></div>
       <div className="blur top-[36%] -left-[8rem]"></div>
       {/* <Home /> */}
-      <Profile />
+      {/* <Profile /> */}
+      <Auth />
     </div>
   );
 }
