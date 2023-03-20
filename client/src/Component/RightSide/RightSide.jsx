@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./RightSide.css";
 import Home from "../../img/home.png";
 import NotificationIcon from "../../img/noti.png";
 import Comment from "../../img/comment.png";
 import { UilSetting } from "@iconscout/react-unicons";
 import TrendCard from "../TrendCard/TrendCard";
+import ShareModel from "../Share/ShareModel";
 
 function RightSide() {
+  const [modalOpened, setModalOpened] = useState(false);
+
   return (
     <div className="RightSide">
       <div className="navIcon">
@@ -16,7 +19,12 @@ function RightSide() {
         <img src={Comment} alt="Comment" />
       </div>
       <TrendCard />
-      <button className="button r-button">Share</button>
+      <button className="button r-button" onClick={() => setModalOpened(true)}>
+        Share
+      </button>
+      {modalOpened && (
+        <ShareModel modalOpened={modalOpened} setModalOpened={setModalOpened} />
+      )}
     </div>
   );
 }
