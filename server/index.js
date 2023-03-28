@@ -5,6 +5,7 @@ import cors from "cors";
 import connectMongodb from "./Config/connection.js";
 import dotenv from "dotenv";
 import AuthRoutes from "./Routes/AuthRoutes.js";
+import UserRoutes from "./Routes/UserRoutes.js";
 
 /* declearing port */
 dotenv.config();
@@ -22,10 +23,7 @@ await connectMongodb();
 
 // usages of routes
 app.use("/auth", AuthRoutes);
-
-app.get("/user/login", (req, res) => {
-  return res.json({ data: "Success" });
-});
+app.use("/user", UserRoutes);
 
 app.listen(PORT, () => {
   console.log("port is running", PORT);
