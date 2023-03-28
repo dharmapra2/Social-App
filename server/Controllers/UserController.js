@@ -1,44 +1,17 @@
-import bcrypt from "bcrypt";
 import UserModel from "../Models/userModle.js";
 
-const saltRounds = 10;
-
-// Registering a new user
-export const registerUser = async (req, res) => {
-  const { userName, password, first_name, last_name, email } = req.body;
-  const hashPassword = await bcrypt.hash(password, saltRounds);
-  const newUser = new UserModel({
-    userName,
-    password: hashPassword,
-    first_name,
-    last_name,
-    email,
-  });
+// get a user
+export const getUser = async (req, res) => {
+  const userId = req?.params?.id;
   try {
-    await newUser.save();
-    res.status(200).json(newUser);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-// Login an existing user
-export const loginUser = async (req, res) => {
-  const { userName, password, ...props } = req?.body;
-  // console.log(req);
-  try {
-    const searchUser = await UserModel.findOne({ userName });
-    if (searchUser) {
-      const checkPassword = await bcrypt.compare(
-        password,
-        searchUser?.password
-      );
-      checkPassword
-        ? res.status(200).json(searchUser)
-        : res.status(400).json({ message: "Login credential does not match." });
+    const user = await UserModel.findById(userId);
+    if (user) {
+      const { password, isAdmin, ...otherInfo } = user?._doc;
+      res.status(200).json(otherInfo);
     } else {
-      res.status(404).json({ message: "User does not exits." });
+      res.status(404).json({ message: "No user found." });
     }
   } catch (error) {
-    res.status(500).json({ message: error?.message });
+    res.status(500).json({ message: error.message });
   }
 };

@@ -1,9 +1,9 @@
 import express from "express";
+import { getUser } from "../Controllers/UserController.js";
 
 const router = express.Router();
 
-router.post("/get", async (res, req) => {
-  res.status(200).json("don");
-});
+// here we'll get user by thier id
+router.get("/:id", getUser);
 
 export default router;
