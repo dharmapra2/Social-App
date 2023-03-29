@@ -25,6 +25,17 @@ await connectMongodb();
 app.use("/auth", AuthRoutes);
 app.use("/user", UserRoutes);
 
+// Error handler middleware
+app.use((err, req, res, next) => {
+  res.status(err?.status || 500).json({
+    // error: {
+    //   message: err.message || "Internal Server Error",
+    //   status: err.status || 500,
+    // },
+    message: err?.message || "Internal Server Error",
+  });
+});
+
 app.listen(PORT, () => {
   console.log("port is running", PORT);
 });
