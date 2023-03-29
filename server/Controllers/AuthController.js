@@ -1,12 +1,11 @@
 import bcrypt from "bcrypt";
 import UserModel from "../Models/userModle.js";
-
-const saltRounds = 10;
+import { GlobalData } from "../Utils/BaseData.js";
 
 // Registering a new user
 export const registerUser = async (req, res) => {
   const { userName, password, first_name, last_name, email } = req.body;
-  const hashPassword = await bcrypt.hash(password, saltRounds);
+  const hashPassword = await bcrypt.hash(password, GlobalData?.saltRounds);
   const newUser = new UserModel({
     userName,
     password: hashPassword,
