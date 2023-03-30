@@ -6,6 +6,7 @@ import connectMongodb from "./Config/connection.js";
 import dotenv from "dotenv";
 import AuthRoutes from "./Routes/AuthRoutes.js";
 import UserRoutes from "./Routes/UserRoutes.js";
+import PostRoutes from "./Routes/PostRoutes.js";
 
 /* declearing port */
 dotenv.config();
@@ -24,6 +25,7 @@ await connectMongodb();
 // usages of routes
 app.use("/auth", AuthRoutes);
 app.use("/user", UserRoutes);
+app.use("/post", PostRoutes);
 
 // Error handler middleware
 app.use((err, req, res, next) => {
