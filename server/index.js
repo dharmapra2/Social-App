@@ -1,7 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import cors from "cors";
 import connectMongodb from "./Config/connection.js";
 import dotenv from "dotenv";
 import AuthRoutes from "./Routes/AuthRoutes.js";
