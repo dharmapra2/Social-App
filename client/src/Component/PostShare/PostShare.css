@@ -4,9 +4,8 @@
   background-color: var(--cardColor);
   padding: 1rem;
   border-radius: 1rem;
-  /* background: #000; */
   /* overflow: auto; */
-  /* flex-direction: column; */
+  flex-direction: column;
 }
 .PostShare > img {
   border-radius: 50%;
