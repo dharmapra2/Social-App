@@ -1,23 +1,38 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 import "./Auth.css";
 import Logo from "../../img/logo.png";
 function Auth() {
   const initialData = {
-    userName: "",
     first_name: "",
     last_name: "",
     password: "",
     confirmPassword: "",
     email: "",
   };
+  const dispatch = useDispatch();
   const [isSignedUp, setIsSignedUp] = useState(true);
   const [formInput, setformInput] = useState(initialData);
   const handleInputChange = (event) => {
-    setformInput({ ...formInput, [event.target.name]: event?.target?.value });
+    setformInput({
+      ...formInput,
+      [event.target.name]: event?.target?.value?.trim(),
+    });
   };
   const handleSubmit = (event) => {
     event?.preventDefault();
-    console.log(formInput);
+    if (isSignedUp) {
+      if (formInput?.confirmPassword !== formInput?.password) {
+        Swal.fire({
+          icon: "warning",
+          title: "Oops...",
+          text: "confirm password is mismatch",
+        });
+        return;
+      }
+      console.log(formInput);
+    }
   };
   return (
     <div className="Auth">
@@ -30,8 +45,8 @@ function Auth() {
         </div>
       </div>
       {/* right part */}
-      {isSignedUp ? (
-        <div className="a-right">
+      <div className="a-right">
+        {isSignedUp ? (
           <form className="infoFrom authForm" onSubmit={handleSubmit}>
             <h3>Sign up</h3>
             <div className="">
@@ -39,37 +54,44 @@ function Auth() {
                 type="text"
                 placeholder="First Name"
                 className="infoInput"
-                defaultValue={formInput?.first_name}
+                value={formInput?.first_name ?? ""}
                 name="first_name"
                 onChange={handleInputChange}
+                required
+                title="Enter your First Name"
               />
               <input
                 type="text"
                 placeholder="Last Name"
                 className="infoInput"
-                defaultValue={formInput?.last_name}
+                value={formInput?.last_name ?? ""}
                 name="last_name"
                 onChange={handleInputChange}
+                required
+                title="Enter your Last name"
               />
             </div>
-            <div className="">
+            {/* <div className="">
               <input
                 type="text"
                 placeholder="User Name"
                 className="infoInput"
-                defaultValue={formInput?.userName}
+                value={formInput?.userName??""}
                 name="userName"
                 onChange={handleInputChange}
+                required
               />
-            </div>
+            </div> */}
             <div className="">
               <input
                 type="email"
                 placeholder="Email"
                 className="infoInput"
-                defaultValue={formInput?.email}
+                value={formInput?.email ?? ""}
                 name="email"
                 onChange={handleInputChange}
+                title="Enter your mail ID"
+                required
               />
             </div>
             <div className="">
@@ -77,17 +99,21 @@ function Auth() {
                 type="password"
                 placeholder="Password"
                 className="infoInput"
-                defaultValue={formInput?.password}
+                value={formInput?.password ?? ""}
                 name="password"
                 onChange={handleInputChange}
+                required
+                title="Enter Password"
               />
               <input
                 type="password"
                 placeholder="Confirm Password"
                 className="infoInput"
-                defaultValue={formInput?.confirmPassword}
+                value={formInput?.confirmPassword ?? ""}
                 name="confirmPassword"
                 onChange={handleInputChange}
+                required
+                title="Enter Confirm Password"
               />
             </div>
             <div className="">
@@ -105,9 +131,7 @@ function Auth() {
               Signup
             </button>
           </form>
-        </div>
-      ) : (
-        <div className="a-right">
+        ) : (
           <form className="infoFrom authForm" onSubmit={handleSubmit}>
             <h3>Log In</h3>
             <div className="">
@@ -116,8 +140,9 @@ function Auth() {
                 placeholder="User Name"
                 className="infoInput"
                 name="userName"
-                defaultValue={formInput?.userName}
+                value={formInput?.userName ?? ""}
                 onChange={handleInputChange}
+                required
               />
             </div>
             <div className="">
@@ -126,8 +151,9 @@ function Auth() {
                 placeholder="Password"
                 className="infoInput"
                 name="password"
-                defaultValue={formInput?.password}
+                value={formInput?.password ?? ""}
                 onChange={handleInputChange}
+                required
               />
             </div>
             <div className="">
@@ -145,8 +171,8 @@ function Auth() {
               </button>
             </div>
           </form>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
