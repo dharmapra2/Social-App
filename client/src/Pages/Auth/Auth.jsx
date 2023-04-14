@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import "./Auth.css";
 import Logo from "../../img/logo.png";
@@ -11,7 +11,7 @@ function Auth() {
     confirmPassword: "",
     email: "",
   };
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [isSignedUp, setIsSignedUp] = useState(true);
   const [formInput, setformInput] = useState(initialData);
   const handleInputChange = (event) => {

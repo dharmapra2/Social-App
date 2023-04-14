@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "seed": "node ./seed/seed.js",
+    "docker-start": "npm run seed && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -20,6 +22,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongoose": "^6.9.1"
+    "mongoose": "^6.9.1",
+    "nodemon": "^2.0.22"
   }
 }
