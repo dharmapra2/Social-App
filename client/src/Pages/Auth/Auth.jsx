@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import "./Auth.css";
 import Logo from "../../img/logo.png";
+import { login, signUp } from "../../redux/slices/AuthAction";
 function Auth() {
   const initialData = {
     first_name: "",
@@ -11,7 +12,7 @@ function Auth() {
     confirmPassword: "",
     email: "",
   };
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [isSignedUp, setIsSignedUp] = useState(true);
   const [formInput, setformInput] = useState(initialData);
   const handleInputChange = (event) => {
@@ -31,7 +32,9 @@ function Auth() {
         });
         return;
       }
-      console.log(formInput);
+      dispatch(signUp(formInput));
+    } else {
+      dispatch(login(formInput));
     }
   };
   return (

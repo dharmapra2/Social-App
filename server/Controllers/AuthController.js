@@ -21,10 +21,9 @@ export const registerUser = async (req, res, next) => {
 };
 // Login an existing user
 export const loginUser = async (req, res, next) => {
-  const { userName, password, ...props } = req?.body;
-  // console.log(req);
+  const { email, password, ...props } = req?.body;
   try {
-    const searchUser = await UserModel.findOne({ userName });
+    const searchUser = await UserModel.findOne({ email });
     if (searchUser) {
       const checkPassword = await GlobalData?.comparePass(
         password,
