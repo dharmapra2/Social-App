@@ -34,7 +34,7 @@ app.use("/user", UserRoutes);
 app.use("/post", PostRoutes);
 // Route handler for GET /
 app.get("/hi", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(path.resolve(), 'index.html'));
 });
 
 // Error handler middleware

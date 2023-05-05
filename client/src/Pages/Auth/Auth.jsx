@@ -142,8 +142,8 @@ function Auth() {
                 type="text"
                 placeholder="User Name"
                 className="infoInput"
-                name="userName"
-                value={formInput?.userName ?? ""}
+                name="email"
+                value={formInput?.email ?? ""}
                 onChange={handleInputChange}
                 required
               />
