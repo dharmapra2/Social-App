@@ -15,6 +15,8 @@
   "author": "Dharma Pradhan",
   "license": "ISC",
   "dependencies": {
+    "@graphql-tools/schema": "^9.0.19",
+    "apollo-server-express": "^3.12.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
