@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - data:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - social-app-net
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    volumes:
+      - logs:/app/logs
+      - ./server:/app
+      - ./server/.env:/app/.env
+      - /app/node_modules
+    ports:
+      - '5000:5000'
+    networks:
+      - social-app-net
+    depends_on:
+      - mongodb
+    restart: always
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - ./client/src:/app/src
+      - ./client/.env:/app/.env
+      - ./client/public:/app/public
+    ports:
+      - '3000:3000'
+    networks:
+      - social-app-net
+    stdin_open: true
+    tty: true
+    depends_on:
+      - server
+    restart: always
+
+networks:
+  social-app-net:
+    driver: bridge
+
+volumes:
+  data:
+  logs:
