@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import "./Auth.css";
 import Logo from "../../img/logo.png";
-import { login, signUp } from "../../redux/slices/AuthAction";
+import { login, signUp } from "../../redux/Actions/AuthAction";
 function Auth() {
   const initialData = {
     first_name: "",
