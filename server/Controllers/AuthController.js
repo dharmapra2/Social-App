@@ -30,7 +30,7 @@ export const loginUser = async (req, res, next) => {
         searchUser?.password
       );
       checkPassword
-        ? res.status(200).json(searchUser)
+        ? res.status(200).json({ message: "You Successfully logged in." })
         : res.status(400).json({ message: "Login credential does not match." });
     } else {
       res.status(404).json({ message: "User does not exits." });

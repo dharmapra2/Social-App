@@ -1,7 +1,6 @@
 import React from "react";
 import "./TrendCard.css";
 import { TrendData } from "../../Data/TrendData";
-console.log(TrendData);
 function TrendCard() {
   return (
     <div className="TrendCard">

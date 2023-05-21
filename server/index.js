@@ -15,7 +15,7 @@ const PORT = process.env.HOST_PORT || 4000;
 const app = express();
 
 mongoose.set("strictQuery", true);
-// Allow requests from http://localhost:3000
+// Allow requests from client-side http://localhost:3000
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -34,7 +34,7 @@ app.use("/user", UserRoutes);
 app.use("/post", PostRoutes);
 // Route handler for GET /
 app.get("/hi", (req, res) => {
-  res.sendFile(path.join(path.resolve(), 'index.html'));
+  res.sendFile(path.join(path.resolve(), "index.html"));
 });
 
 // Error handler middleware

@@ -13,6 +13,7 @@ function Auth() {
     email: "",
   };
   const dispatch = useDispatch();
+  // const loading=
   const [isSignedUp, setIsSignedUp] = useState(true);
   const [formInput, setformInput] = useState(initialData);
   const handleInputChange = (event) => {
