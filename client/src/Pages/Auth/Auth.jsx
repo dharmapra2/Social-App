@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import "./Auth.css";
 import Logo from "../../img/logo.png";
 import { login, signUp } from "../../redux/Actions/AuthAction";
+import Button from "../../Component/Button/Button";
 function Auth() {
   const initialData = {
     first_name: "",
@@ -13,7 +14,7 @@ function Auth() {
     email: "",
   };
   const dispatch = useDispatch();
-  // const loading=
+  const loading = useSelector((state) => state?.authReducer?.loading);
   const [isSignedUp, setIsSignedUp] = useState(true);
   const [formInput, setformInput] = useState(initialData);
   const handleInputChange = (event) => {
@@ -131,9 +132,7 @@ function Auth() {
                 Already have an account. Login!
               </span>
             </div>
-            <button className="button infoBtn" type="submit">
-              Signup
-            </button>
+            <Button type="submit" value="SignUp" loading={loading} />
           </form>
         ) : (
           <form className="infoFrom authForm" onSubmit={handleSubmit}>
@@ -170,9 +169,7 @@ function Auth() {
               >
                 Don't have an account. SignUp!
               </span>
-              <button className="button infoBtn" type="submit">
-                Login
-              </button>
+              <Button type="submit" value="Login" loading={loading} />
             </div>
           </form>
         )}

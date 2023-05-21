@@ -1,19 +1,22 @@
 import UserModel from "../Models/userModel.js";
 import { GlobalData } from "../Utils/BaseData.js";
-
 // Registering a new user
 export const registerUser = async (req, res, next) => {
-  const { userName, password, first_name, last_name, email } = req.body;
+  const { password, first_name, last_name, email } = req.body;
   const hashPassword = await GlobalData?.genrateHashPass(password);
   const newUser = new UserModel({
-    userName,
     password: hashPassword,
     first_name,
     last_name,
     email,
   });
   try {
+    const oldUSer = await UserModel.findOne({ email });
+    if (oldUSer) {
+      res.status(200).json({ message: "Email is already registered.." });
+    }
     await newUser.save();
+    // const token=jwt
     res.status(200).json(newUser);
   } catch (error) {
     next(error);
