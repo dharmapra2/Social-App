@@ -3,16 +3,16 @@ import mongoose from "mongoose";
 // Define a schema for a user
 const userSchema = new mongoose.Schema(
   {
-    // userName: {
-    //   type: String,
-    //   required: true,
-    //   unique: true,
-    // },
-    email: {
+    userName: {
       type: String,
       required: true,
       unique: true,
     },
+    // email: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    // },
     password: {
       type: String,
       required: true,
@@ -40,6 +40,16 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Define a pre-save middleware to set the userName field
+// userSchema.pre("save", function (next) {
+//   if (this.isModified("first_name") || this.isModified("last_name")) {
+//     const firstName = this.first_name?.trim() || "";
+//     const lastName = this.last_name?.trim() || "";
+//     this.userName = `${lastName}${firstName}`;
+//   }
+//   next();
+// });
 
 // Define a model for the user schema
 const UserModel = mongoose.model("Users", userSchema);

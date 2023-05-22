@@ -11,7 +11,7 @@ function Auth() {
     last_name: "",
     password: "",
     confirmPassword: "",
-    email: "",
+    userName: "",
   };
   const dispatch = useDispatch();
   const loading = useSelector((state) => state?.authReducer?.loading);
@@ -92,8 +92,8 @@ function Auth() {
                 type="email"
                 placeholder="Email"
                 className="infoInput"
-                value={formInput?.email ?? ""}
-                name="email"
+                value={formInput?.userName ?? ""}
+                name="userName"
                 onChange={handleInputChange}
                 title="Enter your mail ID"
                 required
@@ -142,8 +142,8 @@ function Auth() {
                 type="text"
                 placeholder="User Name"
                 className="infoInput"
-                name="email"
-                value={formInput?.email ?? ""}
+                name="userName"
+                value={formInput?.userName ?? ""}
                 onChange={handleInputChange}
                 required
               />

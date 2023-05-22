@@ -1,42 +1,65 @@
 import UserModel from "../Models/userModel.js";
 import { GlobalData } from "../Utils/BaseData.js";
+import jwt from "jsonwebtoken";
 // Registering a new user
 export const registerUser = async (req, res, next) => {
-  const { password, first_name, last_name, email } = req.body;
+  const { password, first_name, last_name, userName } = req.body;
   const hashPassword = await GlobalData?.genrateHashPass(password);
-  const newUser = new UserModel({
+  const registerNewUser = new UserModel({
     password: hashPassword,
     first_name,
     last_name,
-    email,
+    userName,
   });
   try {
-    const oldUSer = await UserModel.findOne({ email });
+    const oldUSer = await UserModel.findOne({ userName });
     if (oldUSer) {
-      res.status(200).json({ message: "Email is already registered.." });
+      return res
+        .status(200)
+        .json({ message: "User Name is already registered.." });
     }
-    await newUser.save();
-    // const token=jwt
-    res.status(200).json(newUser);
+    const newUser = await registerNewUser.save();
+    const token = jwt.sign(
+      {
+        userName: newUser?.userName,
+        id: newUser._id,
+      },
+      process.env.JWT_TOKEN,
+      { expiresIn: "2h" }
+    );
+    return res.status(200).json({ newUser, token });
   } catch (error) {
     next(error);
   }
 };
 // Login an existing user
 export const loginUser = async (req, res, next) => {
-  const { email, password, ...props } = req?.body;
+  const { userName, password, ...props } = req?.body;
   try {
-    const searchUser = await UserModel.findOne({ email });
+    const searchUser = await UserModel.findOne({ userName });
     if (searchUser) {
       const checkPassword = await GlobalData?.comparePass(
         password,
         searchUser?.password
       );
-      checkPassword
-        ? res.status(200).json({ message: "You Successfully logged in." })
-        : res.status(400).json({ message: "Login credential does not match." });
+      if (!checkPassword) {
+        return res
+          .status(400)
+          .json({ message: "Login credential does not match." });
+      }
+      const token = jwt.sign(
+        {
+          userName: searchUser?.userName,
+          id: searchUser._id,
+        },
+        process.env.JWT_TOKEN,
+        { expiresIn: "2h" }
+      );
+      return res
+        .status(200)
+        .json({ message: "You Successfully logged in.", searchUser, token });
     } else {
-      res.status(404).json({ message: "User does not exits." });
+      return res.status(404).json({ message: "User does not exits." });
     }
   } catch (error) {
     next(error);

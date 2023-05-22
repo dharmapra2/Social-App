@@ -2,11 +2,11 @@ export const authReducer = (
   state = { authData: null, loading: false, error: false },
   action
 ) => {
-  console.log(action);
   switch (action?.type) {
     case "AUTH_START":
       return { ...state, loading: true, error: false };
     case "AUTH_SUCCESS":
+      console.log(action?.data);
       window.localStorage.setItem(
         "profile",
         JSON.stringify({ ...action?.data })

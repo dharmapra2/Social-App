@@ -8,6 +8,7 @@ import {
   UilSchedule,
   UilTimes,
 } from "@iconscout/react-unicons";
+import Button from "../Button/Button";
 
 function PostShare() {
   const [image, setImage] = useState(null);
@@ -16,10 +17,12 @@ function PostShare() {
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
-      setImage({
-        imageUrl: URL.createObjectURL(img),
-      });
+      setImage(img);
     }
+  };
+  const handlePostSubmit = (e) => {
+    e.preventDefault();
+    console.log(e);
   };
   return (
     <div className="PostShare">
@@ -64,7 +67,13 @@ function PostShare() {
             <UilSchedule />
             <span>Schedule</span>
           </div>
-          <button className="button ps-button">Share</button>
+          <Button
+            type="submit"
+            className="button ps-button"
+            value="Share"
+            loading={false}
+            onClick={handlePostSubmit}
+          />
           <input
             type="file"
             name="myImage"
@@ -81,7 +90,7 @@ function PostShare() {
             onClick={() => setImage(null)}
             className="cursor-pointer "
           />
-          <img src={image?.imageUrl} alt="selected image" />
+          <img src={URL.createObjectURL(image)} alt="selected image" />
         </div>
       )}
     </div>

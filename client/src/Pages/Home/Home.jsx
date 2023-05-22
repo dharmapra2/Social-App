@@ -5,6 +5,7 @@ import PostSide from "../../Component/PostSide/PostSide";
 import RightSide from "../../Component/RightSide/RightSide";
 
 function Home() {
+  console.log("home");
   return (
     <div className="Home">
       <ProfileSide />
