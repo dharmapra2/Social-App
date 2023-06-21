@@ -27,7 +27,7 @@ export const registerUser = async (req, res, next) => {
       process.env.JWT_TOKEN,
       { expiresIn: "2h" }
     );
-    return res.status(200).json({ newUser, token });
+    return res.status(200).json({ user: newUser, token });
   } catch (error) {
     next(error);
   }
@@ -57,7 +57,11 @@ export const loginUser = async (req, res, next) => {
       );
       return res
         .status(200)
-        .json({ message: "You Successfully logged in.", searchUser, token });
+        .json({
+          message: "You Successfully logged in.",
+          user: searchUser,
+          token,
+        });
     } else {
       return res.status(404).json({ message: "User does not exits." });
     }

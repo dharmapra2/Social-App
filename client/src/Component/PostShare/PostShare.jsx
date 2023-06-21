@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import ProfileImage from "../../img/profileImg.jpg";
+import { useSelector, useDispatch } from "react-redux";
 import "./PostShare.css";
 import {
   UilScenery,
@@ -13,6 +14,8 @@ import Button from "../Button/Button";
 function PostShare() {
   const [image, setImage] = useState(null);
   const imageRef = useRef(null);
+  const descRef = useRef(null);
+  const { user } = useSelector((state) => state?.authReducer?.authData);
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -22,13 +25,30 @@ function PostShare() {
   };
   const handlePostSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
+    const newPost = {
+      userId: user?._id,
+      desc: descRef?.current?.value,
+    };
+    if (image) {
+      const data = new FormData();
+      const fileName = Date.now() + image.name;
+      data.append("name", fileName);
+      data.append("file", image);
+      newPost.image = fileName;
+      console.log("newPost", newPost);
+      console.log("data", data);
+    }
   };
   return (
     <div className="PostShare">
       <img src={ProfileImage} alt="Profile image" />
       <div className="">
-        <input type="text" placeholder="What's happening" />
+        <input
+          ref={descRef}
+          type="text"
+          placeholder="What's happening"
+          required
+        />
         <div className="postOpetions">
           <div
             className="option"
