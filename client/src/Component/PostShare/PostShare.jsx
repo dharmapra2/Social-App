@@ -10,9 +10,11 @@ import {
   UilTimes,
 } from "@iconscout/react-unicons";
 import Button from "../Button/Button";
+import { uploadImageApi } from "../../redux/Actions/UploadAction";
 
 function PostShare() {
   const [image, setImage] = useState(null);
+  const dispatch = useDispatch();
   const imageRef = useRef(null);
   const descRef = useRef(null);
   const { user } = useSelector((state) => state?.authReducer?.authData);
@@ -37,6 +39,11 @@ function PostShare() {
       newPost.image = fileName;
       console.log("newPost", newPost);
       console.log("data", data);
+      try {
+        dispatch(uploadImageApi(data));
+      } catch (error) {
+        console.log(`Upload image Error :- ${error}`);
+      }
     }
   };
   return (

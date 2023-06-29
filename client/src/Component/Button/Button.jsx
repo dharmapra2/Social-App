@@ -1,14 +1,15 @@
 import SkeletonAnimateLoader from "../Loader/SkeletonAnimateLoader";
 
-export default function Button({ ...props }) {
-  let loading = props?.loading ?? false;
+export default function Button({
+  className = "button infoBtn",
+  type,
+  loading = false,
+  value = "Button",
+  ...props
+}) {
   return (
-    <button
-      className={props?.className ?? "button infoBtn"}
-      type={props?.type}
-      {...props}
-    >
-      {loading ? <SkeletonAnimateLoader /> : props?.value ?? "Button"}
+    <button className={className ?? "button infoBtn"} type={type} {...props}>
+      {loading ? <SkeletonAnimateLoader /> : value ?? "Button"}
     </button>
   );
 }

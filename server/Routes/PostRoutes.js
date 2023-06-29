@@ -8,10 +8,14 @@ import {
   likePost,
   updatePost,
 } from "../Controllers/PostController.js";
+import { uploadImage } from "../Controllers/UploadController.js";
 
 const router = express.Router();
 
 router.post("/createPost", createPost);
+
+// upload image posts
+router.post("/uploadImage", uploadImage);
 
 router.get("/getAllPosts", getAllPosts);
 router.get("/:id", getPost);
