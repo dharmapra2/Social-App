@@ -11,6 +11,8 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-export const uploadImage = async (_req, _res, _next) => {
-  console.log(`uniqueSuffix: ${upload}`);
+export const uploadImage = async (req, res, _next) => {
+  console.log(req);
+  // console.log(`uniqueSuffix: ${upload}`);
+  res.send().json("hii");
 };
