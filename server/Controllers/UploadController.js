@@ -1,18 +1,16 @@
 import multer from "multer";
+import upload from "../Services/multerService.js";
 
-const storage = multer.diskStorage({
-  destination: function (_req, _file, cb) {
-    cb(null, "/public/images");
-  },
-  filename: function (_req, _file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix);
-  },
-});
-
-const upload = multer({ storage: storage });
-export const uploadImage = async (req, res, _next) => {
-  console.log(req);
-  // console.log(`uniqueSuffix: ${upload}`);
-  res.send().json("hii");
+export const uploadImage = (req, res) => {
+  upload.any()(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      // A Multer error occurred when uploading.
+      res.status(400).json({ message: err.message });
+    } else if (err) {
+      // Other errors
+      res.status(500).json({ message: "Internal server error" });
+    }
+    // Everything went fine.
+    res.status(200).json({ message: "Post is updated!" });
+  });
 };

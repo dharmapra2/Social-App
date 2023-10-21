@@ -2,6 +2,7 @@ import { Modal, useMantineTheme } from "@mantine/core";
 import PostShare from "../PostShare/PostShare";
 
 function ShareModel({ modalOpened, setModalOpened }) {
+  console.log(`modalOpened : ${modalOpened}`);
   const theme = useMantineTheme();
 
   return (

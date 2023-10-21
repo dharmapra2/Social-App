@@ -32,15 +32,9 @@ function PostShare() {
       desc: descRef?.current?.value,
     };
     if (image) {
-      const data = new FormData();
-      const fileName = Date.now() + image.name;
-      data.append("name", fileName);
-      data.append("file", image);
-      newPost.image = fileName;
-      console.log("newPost", newPost);
-      console.log("data", data);
+      newPost.image = image;
       try {
-        dispatch(uploadImageApi(data));
+        dispatch(uploadImageApi(newPost));
       } catch (error) {
         console.log(`Upload image Error :- ${error}`);
       }
@@ -49,7 +43,7 @@ function PostShare() {
   return (
     <div className="PostShare">
       <img src={ProfileImage} alt="Profile image" />
-      <div className="">
+      <form onSubmit={handlePostSubmit} enctype="multipart/form-data">
         <input
           ref={descRef}
           type="text"
@@ -99,7 +93,6 @@ function PostShare() {
             className="button ps-button"
             value="Share"
             loading={false}
-            onClick={handlePostSubmit}
           />
           <input
             type="file"
@@ -110,7 +103,7 @@ function PostShare() {
             onChange={onImageChange}
           />
         </div>
-      </div>
+      </form>
       {image && (
         <div className="prevImage">
           <UilTimes

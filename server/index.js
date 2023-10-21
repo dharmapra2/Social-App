@@ -21,8 +21,8 @@ app.use(
   })
 );
 /* bodyParser.json() or express.json() is used for add the built-in JSON body parser to properly add the "body" property to the request object. */
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(express.json({ limit: "30mb", extended: true }));
+app.use(express.urlencoded({ limit: "30mb", extended: true }));
 
 /* connecting to mongodb */
 await connectMongodb();
