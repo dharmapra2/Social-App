@@ -5,9 +5,7 @@ const storage = multer.diskStorage({
     cb(null, "./public/images/");
   },
   filename: function (_req, file, cb) {
-    console.log(file);
     const extension = file.originalname?.split(".").pop();
-    console.log(extension);
     let temp_file_name = Math.round(Math.random() * 1e9);
     if (_req?.body?.userId) {
       temp_file_name = _req?.body?.userId;
