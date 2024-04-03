@@ -6,25 +6,17 @@ import Logo from "../../img/logo.png";
 import { login, signUp } from "../../redux/Actions/AuthAction";
 import Button from "../../Component/Button/Button";
 function Auth() {
-  const initialData = {
-    first_name: "",
-    last_name: "",
-    password: "",
-    confirmPassword: "",
-    userName: "",
-  };
   const dispatch = useDispatch();
   const loading = useSelector((state) => state?.authReducer?.loading);
   const [isSignedUp, setIsSignedUp] = useState(true);
-  const [formInput, setformInput] = useState(initialData);
-  const handleInputChange = (event) => {
-    setformInput({
-      ...formInput,
-      [event.target.name]: event?.target?.value?.trim(),
-    });
-  };
+
   const handleSubmit = (event) => {
     event?.preventDefault();
+    let formData = new FormData(event.target);
+    let formInput = {};
+    for (let [key, value] of formData.entries()) {
+      formInput[key] = value?.trim();
+    }
     if (isSignedUp) {
       if (formInput?.confirmPassword !== formInput?.password) {
         Swal.fire({
@@ -59,43 +51,26 @@ function Auth() {
                 type="text"
                 placeholder="First Name"
                 className="infoInput"
-                value={formInput?.first_name ?? ""}
                 name="first_name"
-                onChange={handleInputChange}
-                required
                 title="Enter your First Name"
+                required
               />
               <input
                 type="text"
                 placeholder="Last Name"
                 className="infoInput"
-                value={formInput?.last_name ?? ""}
                 name="last_name"
-                onChange={handleInputChange}
-                required
                 title="Enter your Last name"
+                required
               />
             </div>
-            {/* <div className="">
-              <input
-                type="text"
-                placeholder="User Name"
-                className="infoInput"
-                value={formInput?.userName??""}
-                name="userName"
-                onChange={handleInputChange}
-                required
-              />
-            </div> */}
             <div className="">
               <input
                 type="email"
                 placeholder="Email"
                 className="infoInput"
-                value={formInput?.userName ?? ""}
-                name="userName"
-                onChange={handleInputChange}
                 title="Enter your mail ID"
+                name="userName"
                 required
               />
             </div>
@@ -104,20 +79,16 @@ function Auth() {
                 type="password"
                 placeholder="Password"
                 className="infoInput"
-                value={formInput?.password ?? ""}
                 name="password"
-                onChange={handleInputChange}
-                required
                 title="Enter Password"
+                required
               />
               <input
                 type="password"
                 placeholder="Confirm Password"
                 className="infoInput"
-                value={formInput?.confirmPassword ?? ""}
-                name="confirmPassword"
-                onChange={handleInputChange}
                 required
+                name="confirmPassword"
                 title="Enter Confirm Password"
               />
             </div>
@@ -126,13 +97,17 @@ function Auth() {
                 className="text-[12px] cursor-pointer"
                 onClick={() => {
                   setIsSignedUp(!isSignedUp);
-                  setformInput((prev) => initialData);
                 }}
               >
                 Already have an account. Login!
               </span>
             </div>
-            <Button type="submit" value="SignUp" loading={loading} />
+            <Button
+              type="submit"
+              value="SignUp"
+              loading={loading}
+              disabled={loading}
+            />
           </form>
         ) : (
           <form className="infoFrom authForm" onSubmit={handleSubmit}>
@@ -142,10 +117,8 @@ function Auth() {
                 type="text"
                 placeholder="User Name"
                 className="infoInput"
-                name="userName"
-                value={formInput?.userName ?? ""}
-                onChange={handleInputChange}
                 required
+                name="userName"
               />
             </div>
             <div className="">
@@ -153,10 +126,8 @@ function Auth() {
                 type="password"
                 placeholder="Password"
                 className="infoInput"
-                name="password"
-                value={formInput?.password ?? ""}
-                onChange={handleInputChange}
                 required
+                name="password"
               />
             </div>
             <div className="">
@@ -164,12 +135,16 @@ function Auth() {
                 className="text-[12px] cursor-pointer"
                 onClick={() => {
                   setIsSignedUp(!isSignedUp);
-                  setformInput((prev) => initialData);
                 }}
               >
                 Don't have an account. SignUp!
               </span>
-              <Button type="submit" value="Login" loading={loading} />
+              <Button
+                type="submit"
+                value="Login"
+                loading={loading}
+                disabled={loading}
+              />
             </div>
           </form>
         )}

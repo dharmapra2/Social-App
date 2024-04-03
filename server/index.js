@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 import AuthRoutes from "./Routes/AuthRoutes.js";
 import UserRoutes from "./Routes/UserRoutes.js";
 import PostRoutes from "./Routes/PostRoutes.js";
+import authenticateJWT from "./Middlewares/jwtMiddleware.js";
 /* declearing port */
 dotenv.config();
 const PORT = process.env.HOST_PORT || 4000;

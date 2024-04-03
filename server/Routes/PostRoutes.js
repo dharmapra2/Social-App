@@ -9,6 +9,7 @@ import {
   updatePost,
 } from "../Controllers/PostController.js";
 import { uploadImage } from "../Controllers/UploadController.js";
+import { checkFileLimit } from "../Services/multerService.js";
 
 const router = express.Router();
 

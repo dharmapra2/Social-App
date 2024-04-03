@@ -42,8 +42,8 @@ function PostShare() {
   };
   return (
     <div className="PostShare">
-      <img src={ProfileImage} alt="Profile image" />
-      <form onSubmit={handlePostSubmit} enctype="multipart/form-data">
+      <image src={ProfileImage} alt="Profile image" />
+      <form onSubmit={handlePostSubmit} encType="multipart/form-data">
         <input
           ref={descRef}
           type="text"
@@ -110,7 +110,7 @@ function PostShare() {
             onClick={() => setImage(null)}
             className="cursor-pointer "
           />
-          <img src={URL.createObjectURL(image)} alt="selected image" />
+          <image src={URL.createObjectURL(image)} alt="selected image" />
         </div>
       )}
     </div>

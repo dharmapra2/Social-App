@@ -1,5 +1,7 @@
 import multer from "multer";
 
+const FILE_UPLOAD_LIMIT = 1;
+
 const storage = multer.diskStorage({
   destination: function (_req, _file, cb) {
     cb(null, "./public/images/");
@@ -11,7 +13,7 @@ const storage = multer.diskStorage({
       temp_file_name = _req?.body?.userId;
     }
     const fileName = Date.now() + "_" + temp_file_name + "." + extension;
-
+    console.log(`fileName:${fileName}`);
     cb(null, fileName);
   },
 });
@@ -26,5 +28,24 @@ const fileFilter = (req, file, cb) => {
 };
 
 // Use 'array' for multiple files
-const upload = multer({ storage, fileFilter });
-export default upload;
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: {
+    files: FILE_UPLOAD_LIMIT, // Limit the number of files
+    fileSize: 1024 * 1024 * 5, // 5MB file size limit
+  },
+});
+
+// Middleware to check the number of files uploaded
+const checkFileLimit = (req, res, next) => {
+  if (req.files && req.files.length <= FILE_UPLOAD_LIMIT) {
+    next();
+  } else {
+    return res.status(400).json({
+      error: `Exceeded maximum number of files allowed (${FILE_UPLOAD_LIMIT}).`,
+    });
+  }
+};
+
+export { upload, checkFileLimit, FILE_UPLOAD_LIMIT };

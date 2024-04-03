@@ -6,7 +6,6 @@ export const authReducer = (
     case "AUTH_START":
       return { ...state, loading: true, error: false };
     case "AUTH_SUCCESS":
-      console.log(action?.data);
       window.localStorage.setItem(
         "profile",
         JSON.stringify({ ...action?.data })
