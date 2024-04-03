@@ -10,7 +10,8 @@ import {
   UilTimes,
 } from "@iconscout/react-unicons";
 import Button from "../Button/Button";
-import { uploadImageApi } from "../../redux/Actions/UploadAction";
+import { uploadPost } from "../../redux/Actions/UploadAction";
+import { uploadImage } from "../../API/UploadRequest";
 
 function PostShare() {
   const [image, setImage] = useState(null);
@@ -28,26 +29,40 @@ function PostShare() {
   const handlePostSubmit = (e) => {
     e.preventDefault();
     const newPost = {
-      userId: user?._id,
       desc: descRef?.current?.value,
+      userId: user?._id,
     };
+    const data = new FormData();
     if (image) {
-      newPost.image = image;
+      const extension = image.type?.split("/").pop();
+      let temp_file_name = Math.round(Math.random() * 1e9);
+      if (user?.userId) {
+        temp_file_name = user?.userId;
+      }
+      const fileName = Date.now() + "_" + temp_file_name + "." + extension;
+      console.log(`fileName:${fileName}`, image);
+      data.append("name", fileName);
+      data.append("file", image);
+      data.append("userId", user?._id);
+      data.append("desc", descRef?.current?.value);
+      newPost.image = fileName;
       try {
-        dispatch(uploadImageApi(newPost));
+        dispatch(uploadImage(data));
       } catch (error) {
         console.log(`Upload image Error :- ${error}`);
       }
     }
+    dispatch(uploadPost(newPost));
   };
   return (
     <div className="PostShare">
-      <image src={ProfileImage} alt="Profile image" />
+      <img src={ProfileImage} alt="Profileimage" />
       <form onSubmit={handlePostSubmit} encType="multipart/form-data">
-        <input
+        <textarea
           ref={descRef}
-          type="text"
+          className="w-full"
           placeholder="What's happening"
+          cols={2}
           required
         />
         <div className="postOpetions">
@@ -110,7 +125,7 @@ function PostShare() {
             onClick={() => setImage(null)}
             className="cursor-pointer "
           />
-          <image src={URL.createObjectURL(image)} alt="selected image" />
+          <img src={URL.createObjectURL(image)} alt="SelectedImage" />
         </div>
       )}
     </div>

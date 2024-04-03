@@ -7,7 +7,7 @@ export const createPost = async (req, res, next) => {
   const newPost = new PostModel(req?.body);
   try {
     await newPost.save();
-    res.status(201).json({ message: "Post created." });
+    res.status(201).json(newPost);
   } catch (error) {
     next(error);
   }

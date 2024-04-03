@@ -18,6 +18,7 @@
   gap: 1rem;
   width: 100%;
 }
+.PostShare > form > textarea,
 .PostShare > div > input {
   background-color: var(--inputColor);
   padding: 10px;

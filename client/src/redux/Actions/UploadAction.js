@@ -1,9 +1,21 @@
-import { UploadImage } from "../../API/AuthRequest";
+import * as uploadImageApi from "../../API/UploadRequest";
 
-export const uploadImageApi = (data) => async (dispatch) => {
+export const uploadPost = (data) => async (dispatch) => {
+  dispatch({ type: "UPLOAD_START" });
   try {
-    console.log(data);
-    await UploadImage(data);
+    const newPost = await uploadImageApi.uploadPost(data);
+    dispatch({ type: "UPLOAD_SUCCESS", data: newPost.data });
+  } catch (error) {
+    console.log(`UPLOAD_FAIL: ${error}`);
+    dispatch({ type: "UPLOAD_FAIL" });
+    // dispatch({ type: "UPLOAD_FAIL", error: error.message });
+  }
+};
+
+export const uploadImage = (data) => async (dispatch) => {
+  try {
+    console.log("uploadImageApi", data);
+    await uploadImageApi.uploadImage(data);
   } catch (error) {
     console.log(`Upload Error: ${error}`);
   }
