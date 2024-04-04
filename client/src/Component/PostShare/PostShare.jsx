@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { lazy, useRef, useState } from "react";
 import ProfileImage from "../../img/profileImg.jpg";
 import { useSelector, useDispatch } from "react-redux";
 import "./PostShare.css";
@@ -9,16 +9,18 @@ import {
   UilSchedule,
   UilTimes,
 } from "@iconscout/react-unicons";
-import Button from "../Button/Button";
 import { uploadPost } from "../../redux/Actions/UploadAction";
 import { uploadImage } from "../../API/UploadRequest";
 
+const Button = lazy(() => import("../Button/Button"));
+
 function PostShare() {
   const [image, setImage] = useState(null);
+  const loading = useSelector((state) => state?.postReducer?.uploading);
+  const { user } = useSelector((state) => state?.authReducer?.authData);
   const dispatch = useDispatch();
   const imageRef = useRef(null);
   const descRef = useRef(null);
-  const { user } = useSelector((state) => state?.authReducer?.authData);
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -27,32 +29,38 @@ function PostShare() {
     }
   };
   const handlePostSubmit = (e) => {
-    e.preventDefault();
-    const newPost = {
-      desc: descRef?.current?.value,
-      userId: user?._id,
-    };
-    const data = new FormData();
-    if (image) {
-      const extension = image.type?.split("/").pop();
-      let temp_file_name = Math.round(Math.random() * 1e9);
-      if (user?.userId) {
-        temp_file_name = user?.userId;
+    try {
+      e.preventDefault();
+      const newPost = {
+        userId: user?._id,
+        desc: descRef.current.value,
+      };
+      const data = new FormData();
+      if (image) {
+        const extension = image.type?.split("/").pop();
+        let temp_file_name = Math.round(Math.random() * 1e9);
+        if (user?.userId) {
+          temp_file_name = user?.userId;
+        }
+        const fileName = Date.now() + "_" + temp_file_name + "." + extension;
+        data.append("name", fileName);
+        data.append("file", image);
+        data.append("userId", user?._id);
+        data.append("desc", descRef.current.value);
+        newPost.image = fileName;
+        try {
+          dispatch(uploadImage(data));
+        } catch (error) {
+          console.log(error);
+        }
       }
-      const fileName = Date.now() + "_" + temp_file_name + "." + extension;
-      console.log(`fileName:${fileName}`, image);
-      data.append("name", fileName);
-      data.append("file", image);
-      data.append("userId", user?._id);
-      data.append("desc", descRef?.current?.value);
-      newPost.image = fileName;
-      try {
-        dispatch(uploadImage(data));
-      } catch (error) {
-        console.log(`Upload image Error :- ${error}`);
-      }
+      dispatch(uploadPost(newPost));
+    } catch (error) {
+      console.log(`Upload image Error :- ${error}`);
     }
-    dispatch(uploadPost(newPost));
+    setImage(null);
+    imageRef.current.value = null;
+    descRef.current.value = "";
   };
   return (
     <div className="PostShare">
@@ -63,6 +71,7 @@ function PostShare() {
           className="w-full"
           placeholder="What's happening"
           cols={2}
+          name="desc"
           required
         />
         <div className="postOpetions">
@@ -107,7 +116,8 @@ function PostShare() {
             type="submit"
             className="button ps-button"
             value="Share"
-            loading={false}
+            loading={loading}
+            disabled={loading}
           />
           <input
             type="file"

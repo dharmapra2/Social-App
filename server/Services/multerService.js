@@ -7,12 +7,17 @@ const storage = multer.diskStorage({
     cb(null, "./public/images/");
   },
   filename: function (_req, file, cb) {
-    const extension = file.originalname?.split(".").pop();
-    let temp_file_name = Math.round(Math.random() * 1e9);
-    if (_req?.body?.userId) {
-      temp_file_name = _req?.body?.userId;
+    let fileName = "";
+    if (_req?.body?.name) {
+      fileName = _req?.body?.name;
+    } else {
+      const extension = file.originalname?.split(".").pop();
+      let temp_file_name = Math.round(Math.random() * 1e9);
+      if (_req?.body?.userId) {
+        temp_file_name = _req?.body?.userId;
+      }
+      fileName = Date.now() + "_" + temp_file_name + "." + extension;
     }
-    const fileName = Date.now() + "_" + temp_file_name + "." + extension;
     console.log(`fileName:${fileName}`);
     cb(null, fileName);
   },
