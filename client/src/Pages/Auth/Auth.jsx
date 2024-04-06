@@ -8,7 +8,7 @@ import Button from "../../Component/Button/Button";
 function Auth() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state?.authReducer?.loading);
-  const [isSignedUp, setIsSignedUp] = useState(true);
+  const [isSignedUp, setIsSignedUp] = useState(false);
 
   const handleSubmit = (event) => {
     event?.preventDefault();
