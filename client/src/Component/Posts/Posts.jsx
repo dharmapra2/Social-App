@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import "./Posts.css";
 import { getTimelinePosts } from "../../redux/Actions/PostAction";
 import SkeletonPostLoader from "../Loader/SkeletonPostLoader";
-import SkeletonPageLoader from "../Loader/SkeletonPageLoader";
 
 const PostCom = React.lazy(() => import("../Post/Post"));
+
 function Posts() {
   const dispatch = useDispatch();
   const { posts, loading } = useSelector((state) => state?.postReducer);
@@ -19,7 +19,7 @@ function Posts() {
     <div className="Posts">
       {loading ? (
         <div className="Post">
-          <SkeletonPageLoader />
+          <SkeletonPostLoader count={10} />
         </div>
       ) : (
         posts?.map((post) => (
