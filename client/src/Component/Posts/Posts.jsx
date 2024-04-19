@@ -11,9 +11,13 @@ function Posts() {
   const { posts, loading } = useSelector((state) => state?.postReducer);
   const { user } = useSelector((state) => state?.authReducer?.authData);
   useEffect(() => {
-    dispatch(getTimelinePosts(user?._id));
+    let timeOut = setTimeout(() => {
+      dispatch(getTimelinePosts(user?._id));
+    });
+    return () => clearTimeout(timeOut);
   }, []);
-  console.log(`timeline loading :${loading}`, posts);
+
+  console.log(posts);
 
   return (
     <div className="Posts">
@@ -22,12 +26,10 @@ function Posts() {
           <SkeletonPostLoader count={10} />
         </div>
       ) : (
-        posts?.map((post) => (
-          <div key={post?._id} id={post?._id} className="Post">
-            <Suspense fallback={<SkeletonPostLoader />}>
-              <PostCom data={post} id={post?._id} />
-            </Suspense>
-          </div>
+        posts?.map((post, index) => (
+          <Suspense fallback={<SkeletonPostLoader />}>
+            <PostCom data={post} id={index} />
+          </Suspense>
         ))
       )}
     </div>

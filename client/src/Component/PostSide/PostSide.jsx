@@ -1,7 +1,6 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy } from "react";
 import "./PostSide.css";
 import PostShare from "../PostShare/PostShare";
-import SkeletonPostLoader from "../Loader/SkeletonPostLoader";
 
 const PostTimeline = lazy(() => import("../Posts/Posts"));
 

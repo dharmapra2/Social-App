@@ -21,6 +21,11 @@ app.use(
     origin: "http://localhost:3000",
   })
 );
+
+// to serve images for public
+app.use(express.static("public"));
+app.use("/images", express.static("images"));
+
 /* bodyParser.json() or express.json() is used for add the built-in JSON body parser to properly add the "body" property to the request object. */
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));

@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import Cover from "../../img/cover.jpg";
 import Profile from "../../img/profileImg.jpg";
 import "./ProfileCard.css";
+import { useSelector } from "react-redux";
 
 function ProfileCard() {
+  const { user } = useSelector((state) => state?.authReducer?.authData);
   const [profilePage, setProfilePage] = useState(true);
+
+  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
+
   return (
     <div className="ProfileCard">
       <div className="ProfileImages">

@@ -25,7 +25,7 @@ export const registerUser = async (req, res, next) => {
         id: newUser._id,
       },
       process.env.JWT_TOKEN,
-      { expiresIn: "2h" }
+      { expiresIn: "1h" }
     );
     return res.status(200).json({ user: newUser, token });
   } catch (error) {
@@ -53,7 +53,7 @@ export const loginUser = async (req, res, next) => {
           id: searchUser._id,
         },
         process.env.JWT_TOKEN,
-        { expiresIn: "2h" }
+        { expiresIn: "1h" }
       );
       return res
         .status(200)

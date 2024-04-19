@@ -9,8 +9,10 @@ import {
   UilSchedule,
   UilTimes,
 } from "@iconscout/react-unicons";
-import { uploadPost } from "../../redux/Actions/UploadAction";
-import { uploadImage } from "../../API/UploadRequest";
+import {
+  uploadImageAction,
+  uploadPost,
+} from "../../redux/Actions/UploadAction";
 
 const Button = lazy(() => import("../Button/Button"));
 
@@ -49,7 +51,7 @@ function PostShare() {
         data.append("desc", descRef.current.value);
         newPost.image = fileName;
         try {
-          dispatch(uploadImage(data));
+          dispatch(uploadImageAction(data));
         } catch (error) {
           console.log(error);
         }

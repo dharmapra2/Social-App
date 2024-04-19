@@ -7,10 +7,18 @@ export const postReducer = (
     case "RETREIVING_START":
       return { ...state, loading: true, error: false, uploading: true };
     case "UPLOAD_SUCCESS":
-    case "RETREIVING_SUCCESS":
       return {
         ...state,
         posts: [action?.data, ...state.posts],
+        uploading: false,
+        loading: false,
+        error: false,
+      };
+
+    case "RETREIVING_SUCCESS":
+      return {
+        ...state,
+        posts: [...action?.data, ...state.posts],
         uploading: false,
         loading: false,
         error: false,

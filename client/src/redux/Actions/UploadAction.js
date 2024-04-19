@@ -12,7 +12,7 @@ export const uploadPost = (data) => async (dispatch) => {
   }
 };
 
-export const uploadImage = (data) => async (dispatch) => {
+export const uploadImageAction = (data) => async (dispatch) => {
   try {
     console.log("uploadImageApi", data);
     await uploadImageApi.uploadImage(data);
