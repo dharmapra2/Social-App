@@ -1,5 +1,4 @@
 import React, { lazy, useRef, useState } from "react";
-import ProfileImage from "../../img/profileImg.jpg";
 import { useSelector, useDispatch } from "react-redux";
 import "./PostShare.css";
 import {
@@ -23,6 +22,7 @@ function PostShare() {
   const dispatch = useDispatch();
   const imageRef = useRef(null);
   const descRef = useRef(null);
+  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -66,7 +66,16 @@ function PostShare() {
   };
   return (
     <div className="PostShare">
-      <img src={ProfileImage} alt="Profileimage" />
+      <img
+        src={
+          user?.defaultProfile
+            ? serverPublic + user?.defaultProfile
+            : serverPublic + "/defaultProfile.png"
+        }
+        alt={"profile image" ?? ""}
+        loading="lazy"
+        decoding="auto"
+      />
       <form onSubmit={handlePostSubmit} encType="multipart/form-data">
         <textarea
           ref={descRef}

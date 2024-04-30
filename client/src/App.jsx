@@ -12,7 +12,6 @@ function App() {
     <div className="App">
       <div className="blur -top-[18%] right-0"></div>
       <div className="blur top-[36%] -left-[8rem]"></div>
-      {/* <Profile /> */}
       <Routes>
         <Route
           path="/"
@@ -26,6 +25,7 @@ function App() {
           path="/auth"
           element={user ? <Navigate to="/home" /> : <Auth />}
         />
+        <Route path="/profile/:id" element={user ? <Profile /> : <Auth />} />
       </Routes>
     </div>
   );

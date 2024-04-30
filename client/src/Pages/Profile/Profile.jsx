@@ -9,8 +9,8 @@ function Profile() {
   return (
     <div className="Profile">
       <ProfileLeft />
-      <div className="Profile-center overflow-y-scroll">
-        <ProfileCard />
+      <div className="Profile-center">
+        <ProfileCard location={"profilePage"} />
         <PostSide />
       </div>
       <RightSide />

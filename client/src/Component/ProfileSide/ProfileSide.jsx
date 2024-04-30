@@ -8,7 +8,7 @@ function ProfileSide() {
   return (
     <div className="ProfileSide">
       <LogSearchComponent />
-      <ProfileCard />
+      <ProfileCard location={"homePage"} />
       <FollowersCard />
     </div>
   );

@@ -14,9 +14,7 @@ function Post({ data, ...props }) {
   const [liked, setLiked] = useState(data.likes?.includes(user?._id) ?? false);
   const [likes, setLikes] = useState(data.likes?.length);
 
-  useEffect(() => {
-    console.log(data);
-  }, []);
+  useEffect(() => {}, [data]);
 
   const handleLiked = () => {
     setLiked((prev) => !prev);
@@ -33,6 +31,8 @@ function Post({ data, ...props }) {
         }
         alt={data?.name}
         className="postImage"
+        loading="lazy"
+        decoding="auto"
       />
       <div className="postReacts">
         <img
@@ -40,9 +40,11 @@ function Post({ data, ...props }) {
           alt="Heart"
           className="cursor-pointer"
           onClick={handleLiked}
+          loading="lazy"
+          decoding="auto"
         />
-        <img src={Share} alt="Share" />
-        <img src={Comment} alt="Comment" />
+        <img src={Share} alt="Share" loading="lazy" decoding="auto" />
+        <img src={Comment} alt="Comment" loading="lazy" decoding="auto" />
       </div>
       <div className="likes">{likes ?? 0} likes</div>
       <div className="details">

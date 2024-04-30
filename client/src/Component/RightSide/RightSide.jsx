@@ -6,6 +6,7 @@ import Comment from "../../img/comment.png";
 import { UilSetting } from "@iconscout/react-unicons";
 import TrendCard from "../TrendCard/TrendCard";
 import ShareModel from "../Share/ShareModel";
+import { Link } from "react-router-dom";
 
 function RightSide() {
   const [modalOpened, setModalOpened] = useState(false);
@@ -13,10 +14,12 @@ function RightSide() {
   return (
     <div className="RightSide">
       <div className="navIcon">
-        <img src={Home} alt="Home" />
+        <Link to={"/home"}>
+          <img loading="lazy" src={Home} alt="Home" />
+        </Link>
         <UilSetting />
-        <img src={NotificationIcon} alt="NotificationIcon" />
-        <img src={Comment} alt="Comment" />
+        <img loading="lazy" src={NotificationIcon} alt="NotificationIcon" />
+        <img loading="lazy" src={Comment} alt="Comment" />
       </div>
       <TrendCard />
       <button className="button r-button" onClick={() => setModalOpened(true)}>
